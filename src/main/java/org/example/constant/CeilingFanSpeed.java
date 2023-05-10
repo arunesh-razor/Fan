@@ -1,5 +1,6 @@
-package org.example;
+package org.example.constant;
 
+// Ceiling Fan Speed setting
 public enum CeilingFanSpeed {
     HIGH_SPEED(3),
     MEDIUM_SPEED(2),
