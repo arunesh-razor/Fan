@@ -1,9 +1,13 @@
-package org.example;
+package org.example.controller;
+
+import org.example.constant.CeilingFanSpeed;
+import org.example.constant.Direction;
 
 import java.time.LocalDate;
 import java.util.Calendar;
 
-public class CeilingFanController implements CeilingFanState{
+// Controller Class to implement the core logic of the Ceiling Fan
+public class CeilingFanController implements CeilingFanState {
     private static CeilingFanController instance = null;
     private CeilingFanSpeed currentSpeed;
     private LocalDate today;
@@ -24,12 +28,13 @@ public class CeilingFanController implements CeilingFanState{
         return instance;
     }
 
-    // Public method to set the state of the ceiling fan
+    // Public method to set the Date for the ceiling fan
     public void setDate(LocalDate date) {
         instance.today = date;
+        reset();
     }
 
-    // Public method to set the state of the ceiling fan
+    // Public method to speedUp the ceiling fan
     @Override
     public void speedUp() {
         if (!isOffForHoliday(instance.today)) {
@@ -57,9 +62,12 @@ public class CeilingFanController implements CeilingFanState{
     public void toggleDirection() {
         if (!isOffForHoliday(instance.today)) {
             fanDirection = fanDirection == Direction.FORWARD ? Direction.BACKWARD : Direction.FORWARD;
+        } else {
+            reset();
         }
     }
 
+    // Public method to get the current direction setting of the ceiling fan
     public Direction getCurrentDirection() {
         return fanDirection;
     }
@@ -70,6 +78,7 @@ public class CeilingFanController implements CeilingFanState{
         return date.getMonthValue() == 12 && date.getDayOfMonth() == 25;
     }
 
+    // Public method to reset the Fan settings
     public void reset() {
         currentSpeed = CeilingFanSpeed.OFF;
         fanDirection = Direction.FORWARD;
