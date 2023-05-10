@@ -19,7 +19,6 @@ public class CeilingFanTest {
     @BeforeEach
     void setUp() throws Exception {
         controller = CeilingFanController.getInstance();
-        //controller.setDate(LocalDate.of(2023, 12, 25));
     }
 
     @Test
